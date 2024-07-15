@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block main%}
+<div class="row">
+    <!-- SIDEBAR -->
+    <div class="col-3 pr-0">
+        <nav class="navbar bg-dark text-white">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">{{ request.user }}</span>
+            </div>
+        </nav>
+        <ul class="nav nav-tabs flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="{% url 'listar-movimentacao' %}">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                    <span class="m-1"><b>Movimentação</b></span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-secondary" href="{% url 'listar-estoque' %}">
+                    <i class="fa fa-archive" aria-hidden="true"></i>
+                    <span class="m-1"><b>Estoque</b></span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-secondary" href="{% url 'listar-produto' %}">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span class="m-1"><b>Produto</b></span>
+                </a>
+            </li>
+            <li>
+                <a class="nav-link text-secondary" href="#">
+                    <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                    <span class="m-1"><b>Relatórios</b></span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="#">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    <span class="m-1"><b>Configuração</b></span>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link text-secondary" href="#">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <span class="m-1"><b>Encerrar sessão</b></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Content -->
+    <div class="col text-center">
+        {% block content %}
+        <h1>Nada a ser visualizado</h1>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
