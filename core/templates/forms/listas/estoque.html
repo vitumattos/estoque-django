@@ -1,1 +1,41 @@
-estoque-lista
+{% extends 'base/base-sidebar.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>LISTA DE ESTOQUE</h1>
+<a href="{% url 'cadastrar-entrada-estoque' %}" class="btn btn-primary btn-sm">Adicionar Entrada</a>
+<a href="{% url 'cadastrar-saida-estoque' %}" class="btn btn-primary btn-sm">Adicionar Saida</a>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Quantidade</th>
+            <th>Produto</th>
+            <th>Data Atualização</th>
+            <th>Opção</th>
+        </tr>
+        {% for item in object_list %}
+        <p>{{ item }}</p>
+        <tr>
+            <td>{{ item.quantidade }}</td>
+            <td>{{ item.produto }}</td>
+            <td>{{ item.data_atualizacao }}</td>    
+            <td>
+                <a href="{% url 'editar-produto' item.pk %}" title="Editar">
+                    <i class="fa fa-edit px-1 text-darks"></i>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+
+{% endblock %}

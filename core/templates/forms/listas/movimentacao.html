@@ -1,1 +1,44 @@
-movimentacao-lista tem que colocar a tabela de saida tbm
+{% extends 'base/base-sidebar.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>LISTA DE MOVIMENTAÇÃO</h1>
+<a href="{% url 'cadastrar-entrada-estoque' %}" class="btn btn-primary btn-sm">Adicionar Entrada</a>
+<a href="{% url 'cadastrar-saida-estoque' %}" class="btn btn-primary btn-sm">Adicionar Saida</a>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Data</th>
+            <th>Quantidade</th>
+            <th>Produto</th>
+            <th>Responsavel</th>
+            <th>Nota Fiscal</th>
+            <th>Cliente</th>
+            <th>Opções</th>
+        </tr>
+        {% for mov in zipped_list %}
+        <tr>
+            <td>{{ mov.data }}</td>
+            <td>{{ mov.quantidade }}</td>
+            <td>{{ mov.produto }}</td>
+            <td>{{ mov.user }}</td>
+            <td>{{ mov.nota_fiscal }}</td>
+            <td>{{ mov.cliente }}</td>
+            <td>
+                <a href="{% url 'deletar-entrada-estoque' mov.pk %}" title="Excluir">
+                    <i class="fa fa-trash px-2 text-darks"></i>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

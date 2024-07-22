@@ -72,8 +72,17 @@ class EstoqueList(ListView):
 
 
 class MovimentacaoList(ListView):
-    model = SaidaEstoque
+    model = EntradaEstoque
     template_name = 'forms/listas/movimentacao.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MovimentacaoList, self).get_context_data(**kwargs)
+        saida = list(SaidaEstoque.objects.all())
+        entrada = list(EntradaEstoque.objects.all())
+        zipped = entrada + saida
+        context['zipped_list'] = zipped
+        context['zipped'] = zip(SaidaEstoque.objects.all(), EntradaEstoque.objects.all())
+        return context
 
 
 # ========== UPDATE ========== #
@@ -95,6 +104,20 @@ class ProdutoUpdate(UpdateView):
     model = Produto
     fields = ['nome', 'categoria', 'estoque_minimo', 'descricao',
               'fornecedor', 'preco_custo', 'preco_venda', 'imagem', 'ativo']
+    template_name = 'forms/form-update.html'
+    success_url = reverse_lazy('index')
+
+
+class EntradaEstoqueUpdate(UpdateView):
+    model = EntradaEstoque
+    fields = ['produto', 'quantidade', 'nota_fiscal']
+    template_name = 'forms/form-update.html'
+    success_url = reverse_lazy('index')
+
+
+class SaidaEstoqueUpdate(UpdateView):
+    model = SaidaEstoque
+    fields = ['produto', 'quantidade', 'cliente']
     template_name = 'forms/form-update.html'
     success_url = reverse_lazy('index')
 

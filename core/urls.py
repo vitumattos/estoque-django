@@ -2,7 +2,7 @@ from django.urls import path
 from .views import IndexView
 from .views import CategoriaCreate, FornecedorCreate, ProdutoCreate, EntradaEstoqueCreate, SaidaEstoqueCreate
 from .views import ProdutoList, EstoqueList, MovimentacaoList
-from .views import CategoriaUpdate, FornecedorUpdate, ProdutoUpdate
+from .views import CategoriaUpdate, FornecedorUpdate, ProdutoUpdate, EntradaEstoqueUpdate, SaidaEstoqueUpdate
 from .views import CategoriaDelete, FornecedorDelete, ProdutoDelete, EntradaEstoqueDelete, SaidaEstoqueDelete
 
 urlpatterns = [
@@ -20,7 +20,9 @@ urlpatterns = [
 
     path('editar/categoria/<int:pk>', CategoriaUpdate.as_view(), name='editar-categoria'),
     path('editar/fornecedor/<int:pk>', FornecedorUpdate.as_view(), name='editar-fornecedor'),
-    path('editar/produto/<int:pk>', ProdutoUpdate.as_view(), name='cadastrar-produto'),
+    path('editar/produto/<int:pk>', ProdutoUpdate.as_view(), name='editar-produto'),
+    path('editar/entrada-produto/<int:pk>', EntradaEstoqueUpdate.as_view(), name='editar-entrada-produto'),
+    path('editar/saida-produto/<int:pk>', SaidaEstoqueUpdate.as_view(), name='editar-saida-produto'),
 
     path('deletar/categoria/<int:pk>', CategoriaDelete.as_view(), name='deletar-categoria'),
     path('deletar/fornecedor/<int:pk>', FornecedorDelete.as_view(), name='deletar-fornecedor'),

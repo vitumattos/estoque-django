@@ -1,1 +1,57 @@
-produto-list
+{% extends 'base/base-sidebar.html' %}
+{% load static %}
+
+
+{% block content %}
+<h1>LISTA DE PRODUTOS</h1>
+<a href="{% url 'cadastrar-produto' %}" class="btn btn-primary btn-sm">Adicionar Produto</a>
+
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Categoria</th>
+            <th>Estoque Minimo</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Fornecedor</th>
+            <th>Preco de Custo</th>
+            <th>Preco de Venda</th>
+            <th>Imagem</th>
+            <th>ativo</th>
+            <th>Opções</th>
+        </tr>
+        {% for item in object_list %}
+        <p>{{ item }}</p>
+        <tr>
+            <td>{{ item.pk }}</td>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.estoque_minimo }}</td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.descricao }}</td>
+            <td>{{ item.fornecedor }}</td>
+            <td>{{ item.preco_custo }}</td>
+            <td>{{ item.preco_venda }}</td>
+            <td>{{ item.imagem }}</td>
+            <td>{{ item.ativo }}</td>
+            <td>
+                <a href="{% url 'editar-produto' item.pk %}" title="Editar">
+                    <i class="fa fa-edit px-1 text-darks"></i>
+                </a>
+                <a href="{% url 'deletar-produto' item.pk %}" title="Excluir">
+                    <i class="fa fa-trash px-2 text-darks"></i>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhum campo registrado.</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
+{% endblock %}
