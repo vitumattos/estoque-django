@@ -13,28 +13,20 @@
             <th>Quantidade</th>
             <th>Produto</th>
             <th>Data Atualização</th>
-            <th>Opção</th>
         </tr>
         {% for item in object_list %}
-        <p>{{ item }}</p>
         <tr>
             <td>{{ item.quantidade }}</td>
             <td>{{ item.produto }}</td>
-            <td>{{ item.data_atualizacao }}</td>    
-            <td>
-                <a href="{% url 'editar-produto' item.pk %}" title="Editar">
-                    <i class="fa fa-edit px-1 text-darks"></i>
-                </a>
-            </td>
+            <td>{{ item.data_atualizacao }}</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4">Nenhum campo registrado.</td>
+            <td colspan="4">Nenhum estoque registrado.</td>
         </tr>
         {% endfor %}
 
     </table>
-
 </div>
 
 

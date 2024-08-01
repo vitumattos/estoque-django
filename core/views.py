@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Categoria, Fornecedor, Produto, Estoque, EntradaEstoque, SaidaEstoque
+from .models import Categoria, Fornecedor, Produto, Estoque, EntradaSaidaEstoque
 
 from django.urls import reverse_lazy
 
@@ -32,13 +32,13 @@ class ProdutoCreate(CreateView):
     model = Produto
     fields = ['nome', 'categoria', 'estoque_minimo', 'descricao',
               'fornecedor', 'preco_custo', 'preco_venda', 'imagem', 'ativo']
-    template_name = 'forms/form-create.html'
+    template_name = 'forms/forms-produto.html'
     success_url = reverse_lazy('index')
 
 
-class EntradaEstoqueCreate(CreateView):
-    model = EntradaEstoque
-    fields = ['produto', 'quantidade', 'nota_fiscal']
+class EntradaSaidaEstoqueCreate(CreateView):
+    model = EntradaSaidaEstoque
+    fields = ['produto', 'quantidade', 'nota_fiscal', 'cliente', 'ordem']
     template_name = 'forms/form-create.html'
     success_url = reverse_lazy('index')
 
@@ -48,14 +48,28 @@ class EntradaEstoqueCreate(CreateView):
         return url
 
 
+class EntradaEstoqueCreate(CreateView):
+    model = EntradaSaidaEstoque
+    fields = ['produto', 'quantidade', 'nota_fiscal']
+    template_name = 'forms/form-create.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.ordem = 'BUY'
+        url = super().form_valid(form)
+        return url
+
+
 class SaidaEstoqueCreate(CreateView):
-    model = SaidaEstoque
+    model = EntradaSaidaEstoque
     fields = ['produto', 'quantidade', 'cliente']
     template_name = 'forms/form-create.html'
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.ordem = 'SELL'
         url = super().form_valid(form)
         return url
 
@@ -71,18 +85,9 @@ class EstoqueList(ListView):
     template_name = 'forms/listas/estoque.html'
 
 
-class MovimentacaoList(ListView):
-    model = EntradaEstoque
+class EntradaSaidaEstoqueList(ListView):
+    model = EntradaSaidaEstoque
     template_name = 'forms/listas/movimentacao.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(MovimentacaoList, self).get_context_data(**kwargs)
-        saida = list(SaidaEstoque.objects.all())
-        entrada = list(EntradaEstoque.objects.all())
-        zipped = entrada + saida
-        context['zipped_list'] = zipped
-        context['zipped'] = zip(SaidaEstoque.objects.all(), EntradaEstoque.objects.all())
-        return context
 
 
 # ========== UPDATE ========== #
@@ -104,20 +109,13 @@ class ProdutoUpdate(UpdateView):
     model = Produto
     fields = ['nome', 'categoria', 'estoque_minimo', 'descricao',
               'fornecedor', 'preco_custo', 'preco_venda', 'imagem', 'ativo']
-    template_name = 'forms/form-update.html'
+    template_name = 'forms/forms-produto.html'
     success_url = reverse_lazy('index')
 
 
-class EntradaEstoqueUpdate(UpdateView):
-    model = EntradaEstoque
-    fields = ['produto', 'quantidade', 'nota_fiscal']
-    template_name = 'forms/form-update.html'
-    success_url = reverse_lazy('index')
-
-
-class SaidaEstoqueUpdate(UpdateView):
-    model = SaidaEstoque
-    fields = ['produto', 'quantidade', 'cliente']
+class EntradaSaidaEstoqueUpdate(UpdateView):
+    model = EntradaSaidaEstoque
+    fields = ['produto', 'quantidade', 'nota_fiscal', 'cliente', 'ordem']
     template_name = 'forms/form-update.html'
     success_url = reverse_lazy('index')
 
@@ -141,13 +139,7 @@ class ProdutoDelete(DeleteView):
     success_url = reverse_lazy('index')
 
 
-class EntradaEstoqueDelete(DeleteView):
-    model = EntradaEstoque
-    template_name = 'forms/form-delete.html'
-    success_url = reverse_lazy('index')
-
-
-class SaidaEstoqueDelete(DeleteView):
-    model = SaidaEstoque
+class EntradaSaidaEstoqueDelete(DeleteView):
+    model = EntradaSaidaEstoque
     template_name = 'forms/form-delete.html'
     success_url = reverse_lazy('index')

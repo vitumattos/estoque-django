@@ -6,10 +6,12 @@
 <h1>LISTA DE MOVIMENTAÇÃO</h1>
 <a href="{% url 'cadastrar-entrada-estoque' %}" class="btn btn-primary btn-sm">Adicionar Entrada</a>
 <a href="{% url 'cadastrar-saida-estoque' %}" class="btn btn-primary btn-sm">Adicionar Saida</a>
+
 <hr>
 <div class="table-responsive">
     <table class="table table-striped">
         <tr>
+            <th>Ordem</th>
             <th>Data</th>
             <th>Quantidade</th>
             <th>Produto</th>
@@ -18,8 +20,9 @@
             <th>Cliente</th>
             <th>Opções</th>
         </tr>
-        {% for mov in zipped_list %}
+        {% for mov in object_list %}
         <tr>
+            <td>{{ mov.ordem }}</td>
             <td>{{ mov.data }}</td>
             <td>{{ mov.quantidade }}</td>
             <td>{{ mov.produto }}</td>
@@ -27,8 +30,11 @@
             <td>{{ mov.nota_fiscal }}</td>
             <td>{{ mov.cliente }}</td>
             <td>
-                <a href="{% url 'deletar-entrada-estoque' mov.pk %}" title="Excluir">
-                    <i class="fa fa-trash px-2 text-darks"></i>
+                <a href="{% url 'editar-entrada-saida-estoque' mov.pk %}" title="Editar">
+                    <i class="fa fa-edit px-1 text-dark"></i>
+                </a>
+                <a href="{% url 'deletar-entrada-saida-estoque' mov.pk %}" title="Excluir">
+                    <i class="fa fa-trash px-2 text-dark"></i>
                 </a>
             </td>
         </tr>

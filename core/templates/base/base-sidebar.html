@@ -12,7 +12,7 @@
         </nav>
         <ul class="nav nav-tabs flex-column mb-auto">
             <li class="nav-item">
-                <a class="nav-link text-secondary" href="{% url 'listar-movimentacao' %}">
+                <a class="nav-link text-secondary" href="{% url 'listar-entrada-saida-estoque' %}">
                     <i class="fa fa-exchange" aria-hidden="true"></i>
                     <span class="m-1"><b>Movimentação</b></span>
                 </a>
@@ -50,7 +50,7 @@
         </ul>
     </div>
     <!-- Content -->
-    <div class="col text-center">
+    <div class="col">
         {% block content %}
         <h1>Nada a ser visualizado</h1>
         {% endblock %}
