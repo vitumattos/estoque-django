@@ -19,7 +19,7 @@
 
 ```bash
 # Clone este repositório
-$ git clone LINK.git
+$ git clone https://github.com/vitumattos/estoque-django.git
 
 # Acesse a pasta do projeto no seu terminal
 $ cd Estoque
