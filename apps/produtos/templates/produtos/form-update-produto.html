@@ -1,0 +1,74 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block titulo %}
+<title>:|: Editar {{ object }} :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Atualização do produto {{ object }}</h2>
+    <form action='' method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-10 mt-5">
+                <!-- Nome do Produto -->
+                {{ form.nome|as_crispy_field }}
+            </div>
+            <!-- Imagem do Produto -->
+            <div class="form-group col-md-2">
+                {% if form.imagem.value %}
+                <a href="#" onclick="document.getElementById('id_imagem').click()">
+                    <img src="{{ form.imagem.value.url }}" class="img-fluid rounded mb-3" alt="Imagem do Produto"
+                        style="height: 150px; width: 150px;">
+                </a>
+                {% endif %}
+
+                <input type="file" id="id_imagem" name="imagem" class="d-none" accept="image/*">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Categoria -->
+            <div class="form-group col-md-4">
+                {{ form.categoria|as_crispy_field }}
+            </div>
+            <!-- Fornecedor -->
+            <div class="form-group col-md-4">
+                {{ form.fornecedor|as_crispy_field }}
+            </div>
+            <!-- Produto Ativo -->
+            <div class="form-group col-md-4">
+                {{ form.ativo|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Estoque Mínimo -->
+            <div class="form-group col-md-4">
+                {{ form.estoque_minimo|as_crispy_field }}
+            </div>
+            <!-- Preço de Custo -->
+            <div class="form-group col-md-4">
+                {{ form.preco_custo|as_crispy_field }}
+            </div>
+            <!-- Preço de Venda -->
+            <div class="form-group col-md-4">
+                {{ form.preco_venda|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Observação -->
+            <div class="form-group col-md-12">
+                {{ form.observacao|as_crispy_field }}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="{% url 'listar-produto' %}" class="btn btn-danger">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

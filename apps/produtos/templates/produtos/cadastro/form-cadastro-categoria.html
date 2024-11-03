@@ -1,0 +1,28 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>:|: Cadastra Categoria :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Cadastrar Categoria</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Nome da Categoria -->
+            <div class="form-group col-md-6">
+                {{ form.nome|as_crispy_field }}
+            </div>
+        </div>
+        <!-- Botões -->
+        <div class="row mt-4">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="reset" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

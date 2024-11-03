@@ -1,0 +1,54 @@
+{%extends 'polls/base.html'%}
+{%load static%}
+
+{% block body %}
+<div class="row m-0">
+    <!-- Sidebar -->
+    <div class="col-3 bg-light border">
+        <h2 class="p-3 pb-0">
+            <a class="text-decoration-none text-dark" href="{% url 'index' %}">Telch's Company</a>
+        </h2>
+        <hr>
+        <!-- lista de itens colpsáveis -->
+        <div class="list-group list-group-flush">
+            <!-- Item simples Início -->
+            <div class="list-group-item list-group-item-action">
+                <a class="nav-link text-dark" href="{% url 'relatorio' %}">Relatório</a>
+            </div>
+            <!-- Item simples de Cadasto  -->
+            <div class="list-group-item list-group-item-action">
+                <a class="nav-link text-dark" href="{% url 'cadastrar-produto' %}">Cadastar Produto</a>
+            </div>
+            <!-- Item simples Entrada/Saida -->
+            <div class="list-group-item list-group-item-action">
+                <a class="nav-link text-dark" href="{% url 'cadastrar-EntradaSaida' %}">Entrada e Saída</a>
+            </div>
+            <!-- Item simples Estoque -->
+            <div class="list-group-item list-group-item-action">
+                <a class="nav-link text-dark" href="{% url 'estoque' %}">Estoque Atual</a>
+            </div>
+            <!-- Colpsável de Listas  -->
+            <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#collapseListar"
+                role="button" aria-expanded="false" aria-controls="collapseListar">
+                Listar
+            </a>
+            <div class="collapse" id="collapseListar">
+                <div class="list-group">
+                    <a href="{%url 'listar-produto'%}" class="list-group-item list-group-item-action">Produtos</a>
+                    <a href="{%url 'listar-categoria'%}" class="list-group-item list-group-item-action">Categorias</a>
+                    <a href="{%url 'listar-fornecedor'%}"
+                        class="list-group-item list-group-item-action">Fornecedores</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="p-4 col-9">
+        {% block content %}
+        <h3>Conteúdo Principal</h3>
+        <p>Aqui está o conteúdo principal da página.</p>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

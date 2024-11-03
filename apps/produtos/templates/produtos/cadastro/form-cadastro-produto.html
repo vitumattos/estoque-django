@@ -1,0 +1,72 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+{%load static%}
+
+{% block titulo %}
+<title>:|: Cadastra Produto :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Cadastrar Produto</h2>
+    <form action='' method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Nome do Produto -->
+            <div class="form-group col-md-6">
+                {{ form.nome|as_crispy_field }}
+            </div>
+            <!-- Categoria -->
+            <div class="form-group col-md-2">
+                {{ form.categoria|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1">
+                <a href="{% url 'cadastrar-categoria' %}" class="btn btn-outline-primary mt-4" role="button">+</a>
+            </div>
+            <!-- Fornecedor -->
+            <div class="form-group col-md-2">
+                {{ form.fornecedor|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-1">
+                <a href="{% url 'cadastrar-fornecedor' %}" class="btn btn-outline-primary mt-4" role="button">+</a>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Estoque Mínimo -->
+            <div class="form-group col-md-3">
+                {{ form.estoque_minimo|as_crispy_field }}
+            </div>
+            <!-- Preço de Custo -->
+            <div class="form-group col-md-3">
+                {{ form.preco_custo|as_crispy_field }}
+            </div>
+            <!-- Preço de Venda -->
+            <div class="form-group col-md-3">
+                {{ form.preco_venda|as_crispy_field }}
+            </div>
+            <!-- Produto Ativo -->
+            <div class="form-group col-md-3">
+                {{ form.ativo|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Imagem do Produto -->
+            <div class="form-group col-md-6 mt-4">
+                {{ form.imagem|as_crispy_field }}
+            </div>
+            <!-- Observação -->
+            <div class="form-group col-md-6">
+                {{ form.observacao|as_crispy_field }}
+            </div>
+        </div>
+        <!-- Botões -->
+        <br>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="reset" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+
+{% block titulo %}
+<title>:|: Cadastra Fornecedor :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Cadastrar Fornecedor</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Nome do Fornecedor -->
+            <div class="form-group col-md-6">
+                {{ form.nome|as_crispy_field }}
+            </div>
+            <!-- CNPJ -->
+            <div class="form-group col-md-6">
+                {{ form.cnpj|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Email -->
+            <div class="form-group col-md-6">
+                {{ form.email|as_crispy_field }}
+            </div>
+            <!-- Telefone -->
+            <div class="form-group col-md-6">
+                {{ form.telefone|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Endereço -->
+            <div class="form-group col-md-12">
+                {{ form.endereco|as_crispy_field }}
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="row mt-4">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="reset" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

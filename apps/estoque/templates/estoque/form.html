@@ -1,0 +1,68 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block titulo %}
+<title>:|: Movimentações :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Entrada e Saída de Estoque {{ titulo }}</h2>
+    <!-- Formulário para Cadastro -->
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Produto -->
+            <div class="form-group col-md-6">
+                {{ form.produto|as_crispy_field }}
+            </div>
+            <!-- Quantidade -->
+            <div class="form-group col-md-3">
+                {{ form.quantidade|as_crispy_field }}
+            </div>
+            <!-- Ordem -->
+            <div class="form-group col-md-3">
+                {{ form.ordem|as_crispy_field }}
+            </div>
+        </div>
+        <!-- Botão de Salvar -->
+        <div class="row mt-3">
+            <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </form>
+    <!-- Listagem de Objetos -->
+    <h3 class="mt-5">Lista de Movimentações de Estoque</h3>
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Ordem</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.produto }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ item.ordem }}</td>
+                <td>
+                    <a href="{% url 'editar-EntradaSaida' item.pk %}" class="btn btn-sm btn-success">Editar</a>
+                    <a href="{% url 'excluir-EntradaSaida' item.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">Nenhuma movimentação de estoque encontrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'polls/base-sidebar.html' %}
+
+{% block titulo %}
+<title>:|: Listar Fornecedor :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Lista de Fornecedor</h2>
+
+    <table class="table table-bordered table-striped align-middle text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fornecedor in object_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ fornecedor.nome }}</td>
+                <td>{{ fornecedor.cnpj }}</td>
+                <td>{{ fornecedor.email }}</td>
+                <td>{{ fornecedor.telefone }}</td>
+                <td>{{ fornecedor.endereco }}</td>
+                <td>
+                    <a href="{% url 'editar-fornecedor' fornecedor.pk %}" class="btn btn-sm btn-primary">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="{% url 'excluir-fornecedor' fornecedor.pk %}" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </a>
+
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Nenhum cadastro encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-right mt-3">
+        <a href="{% url 'cadastrar-fornecedor' %}" class="btn btn-success">Cadastrar Novo</a>
+    </div>
+</div>
+
+{% endblock %}

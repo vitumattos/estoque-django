@@ -1,0 +1,52 @@
+{% extends 'polls/base-sidebar.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block titulo %}
+<title>:|: Relatório :|:</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Relatório de Estoque</h2>
+
+    <!-- Valor TOTAL do estoque atual -->
+    <h4>Total Geral do Estoque</h4>
+    <p><strong>Estimado:</strong> R$ {{ estoque_sum.estimado_total|floatformat:2 }}</p>
+    <p><strong>Gasto:</strong> R$ {{ estoque_sum.gasto_total|floatformat:2 }}</p>
+
+    <!-- Produtos com Baixo Estoque -->
+    <h3>Produtos com Estoque Baixo</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade Atual</th>
+                <th>Estoque Mínimo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in alert_estoque_min %}
+            <tr>
+                <td>{{ item.produto__nome }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>{{ item.produto__estoque_minimo }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">Nenhum produto abaixo do estoque mínimo.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Produto Mais Vendido -->
+    <h3>Produto Mais Vendido</h3>
+    {% if produto_mais_vendido %}
+    <p><strong>Produto:</strong> {{ produto_mais_vendido.produto__nome }}</p>
+    <p><strong>Total Vendido:</strong> {{ produto_mais_vendido.total_vendido }}</p>
+    {% else %}
+    <p class="text-center">Nenhum produto foi vendido ainda.</p>
+    {% endif %}
+</div>
+{% endblock %}
